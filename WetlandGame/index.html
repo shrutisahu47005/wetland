@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🌿 Mira's Wetland - Educational Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- SCREEN 1: START SCREEN -->
+    <div id="startScreen" class="screen active">
+        <div class="wetland-background">
+            <svg class="background-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                        <stop offset="70%" style="stop-color:#E0F6FF;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#90EE90;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2E5C8A;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1200" height="800" fill="url(#skyGradient)"/>
+                <circle cx="150" cy="120" r="50" fill="#FFD700" opacity="0.8"/>
+                <g style="animation: drift 8s infinite ease-in-out;">
+                    <ellipse cx="300" cy="100" rx="60" ry="30" fill="white" opacity="0.7"/>
+                    <ellipse cx="340" cy="110" rx="50" ry="25" fill="white" opacity="0.7"/>
+                </g>
+                <g style="animation: drift 10s infinite ease-in-out; animation-delay: 2s;">
+                    <ellipse cx="900" cy="140" rx="55" ry="28" fill="white" opacity="0.6"/>
+                    <ellipse cx="940" cy="150" rx="45" ry="23" fill="white" opacity="0.6"/>
+                </g>
+                <rect x="0" y="600" width="1200" height="200" fill="url(#waterGradient)"/>
+                <circle cx="400" cy="700" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" style="animation: ripple 2s infinite;"/>
+                <circle cx="800" cy="720" r="35" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" style="animation: ripple 2.5s infinite; animation-delay: 0.5s;"/>
+            </svg>
+        </div>
+        <div class="start-content">
+            <div class="start-box">
+                <h5 class="start-title">🌿 Voices Of The Wetlands</h5>
+                <p class="start-subtitle">A Story of Hope & Conservation</p>
+                <p class="project-name">🎮 Educational Wetland Conservation Game</p>
+                <div class="start-description">
+                    <p>Help Mira save wetland ecosystems and protect endangered creatures from pollution and destruction.</p>
+                    <p class="tagline">Your choices shape the future of nature.</p>
+                </div>
+                <button id="startBtn" class="start-button">
+                    <span class="button-text">Start Game</span>
+                    <span class="button-icon">▶️</span>
+                </button>
+                <p class="credits">Created for Environmental Education</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: NAME INPUT -->
+    <div id="nameScreen" class="screen">
+        <div class="guide-background">
+            <div class="guide-container">
+                <div class="character-area">
+                    <div class="character character-mira">
+                        <div class="character-emoji">👧</div>
+                        <p class="character-name">Mira</p>
+                    </div>
+                </div>
+                
+                <div class="dialogue-panel panel">
+                    <div class="speaker-name">Mira</div>
+                    <p class="guide-dialogue">
+                        Hi! I'm Mira, and I can hear the voices of animals in the wetlands. They're calling for help! What's your name, friend? I'd love to know who's joining me on this adventure! 🌿
+                    </p>
+                </div>
+
+                <div class="character-select panel" style="margin-bottom: 16px;">
+                    <p><strong>Choose your hero:</strong></p>
+                    <label style="margin-right: 12px;"><input type="radio" name="playerCharacter" value="mira" checked> 👧 Mira</label>
+                    <label style="margin-right: 12px;"><input type="radio" name="playerCharacter" value="professor"> 👨‍🔬 Professor Neeraj</label>
+                    <label><input type="radio" name="playerCharacter" value="loco"> 🧙 Ranger Loco</label>
+                </div>
+                <div class="name-input-box panel">
+                    <input type="text" id="playerName" class="name-input" placeholder="Enter your name..." maxlength="30">
+                    <button class="guide-button" onclick="goToGuide()">
+                        <span>Next</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: GUIDE INTRODUCTION -->
+    <div id="guideScreen" class="screen">
+        <div class="guide-background">
+            <div class="guide-container">
+                <div class="character-area">
+                    <div class="character character-mira">
+                        <div class="character-emoji">👧</div>
+                        <p class="character-name">Mira</p>
+                    </div>
+                </div>
+                
+                <div class="dialogue-panel panel">
+                    <div id="guideSpeaker" class="speaker-name">Mira</div>
+                    <p id="guideText" class="guide-dialogue">
+                        Welcome! I can hear the voices of animals in the wetlands. They're calling for help! I'm so glad you're here - I need your support to explore these ecosystems and save them from destruction. Together, we can make a real difference. Are you ready to help?
+                    </p>
+                </div>
+
+                <button id="guideBtn" class="guide-button" onclick="startFirstLevel()">
+                    <span>Begin First Level</span>
+                    <span>→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 4: GAME SCREEN -->
+    <div id="gameScreen" class="screen">
+        <!-- Reuse the wetland background SVG markup so gameplay has the same illustration as start screen -->
+        <div class="wetland-background">
+            <svg class="background-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="skyGradientGame" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                        <stop offset="70%" style="stop-color:#E0F6FF;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#90EE90;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="waterGradientGame" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2E5C8A;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1200" height="800" fill="url(#skyGradientGame)"/>
+                <circle cx="150" cy="120" r="50" fill="#FFD700" opacity="0.8"/>
+                <g style="animation: drift 8s infinite ease-in-out;">
+                    <ellipse cx="300" cy="100" rx="60" ry="30" fill="white" opacity="0.7"/>
+                    <ellipse cx="340" cy="110" rx="50" ry="25" fill="white" opacity="0.7"/>
+                </g>
+                <g style="animation: drift 10s infinite ease-in-out; animation-delay: 2s;">
+                    <ellipse cx="900" cy="140" rx="55" ry="28" fill="white" opacity="0.6"/>
+                    <ellipse cx="940" cy="150" rx="45" ry="23" fill="white" opacity="0.6"/>
+                </g>
+                <rect x="0" y="600" width="1200" height="200" fill="url(#waterGradientGame)"/>
+                <circle cx="400" cy="700" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" style="animation: ripple 2s infinite;"/>
+                <circle cx="800" cy="720" r="35" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" style="animation: ripple 2.5s infinite; animation-delay: 0.5s;"/>
+            </svg>
+        </div>
+        <div class="game-header">
+            <h1>🌿 Mira's Wetland</h1>
+            <p id="biomeTitle" class="biome-title-game"></p>
+        </div>
+
+        <div class="game-layout">
+            <!-- Main Game Area -->
+            <div class="main-game-area">
+                <!-- Visual Game Canvas for Walking Character -->
+                <div id="visualGameArea" class="visual-game-area" style="display: none;">
+                    <canvas id="gameCanvas" class="game-canvas" width="800" height="400"></canvas>
+                    <div id="gameInstructions" class="game-instructions">
+                        Use arrow keys or WASD to move Mira and collect items by touching them!
+                    </div>
+                    <div id="visualCollectionStatus" class="collection-status"></div>
+                </div>
+
+                <!-- Characters Speaking -->
+                <div class="characters-display">
+                    <div id="activeCharacter" class="character-speaking">
+                        <div id="charEmoji" class="char-emoji-large">👧</div>
+                        <p id="charName" class="char-name-large">Mira</p>
+                        <p id="userRole" class="user-role" style="font-size: 0.9em; color: #667eea; margin-top: 5px;">You're supporting Mira 💪</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Box -->
+                <div class="dialogue-box panel">
+                    <p id="storyText" class="story-text"></p>
+                </div>
+
+                <!-- Collection Area -->
+                <div id="collectionArea" class="collection-area" style="display: none;">
+                    <h4>🗑️ Collect Items:</h4>
+                    <div id="collectiblesContainer" class="collectibles-container"></div>
+                    <div id="collectionStatus" class="collection-status"></div>
+                </div>
+
+                <!-- Choice Buttons -->
+                <div id="choicesBox" class="choices-box">
+                </div>
+
+                <!-- Level Progress Message -->
+                <div id="levelProgressMessage" class="level-progress-message"></div>
+
+                <!-- Audio Toggle Button -->
+                <button id="audioToggleBtn" class="audio-toggle-btn" onclick="toggleAudio()" title="Toggle Background Music">🔊</button>
+
+                <!-- Educational Pop-up -->
+                <div id="educationPopup" class="education-popup panel" style="display: none;">
+                    <div class="popup-header">💡 Did You Know?</div>
+                    <p id="popupText"></p>
+                    <button class="popup-close" onclick="closePopup()">✕</button>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <!-- Wetland Health -->
+                <div class="status-panel panel">
+                    <h3>🌍 Wetland Health</h3>
+                    <div class="health-bar">
+                        <div id="healthFill" class="health-fill"></div>
+                    </div>
+                    <p id="healthValue" class="health-text">60%</p>
+                    <p id="statusMessage" class="status-message"></p>
+                </div>
+
+                <!-- Biodiversity Level -->
+                <div class="status-panel panel">
+                    <h3>🐾 Biodiversity</h3>
+                    <div class="biodiversity-bar">
+                        <div class="bar-fill"></div>
+                    </div>
+                    <p id="bioValue" class="bio-text">50%</p>
+                </div>
+
+                <!-- Pollution Level -->
+                <div class="status-panel panel">
+                    <h3>☠️ Pollution Level</h3>
+                    <div class="pollution-bar">
+                        <div class="bar-fill"></div>
+                    </div>
+                    <p id="pollValue" class="pollution-text">40%</p>
+                </div>
+
+                <!-- Mission Tracker -->
+                <div class="mission-panel panel">
+                    <h3>📋 Missions</h3>
+                    <div id="missionList" class="mission-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: RESULT/ENDING SCREEN -->
+    <div id="resultScreen" class="screen">
+        <div class="result-background">
+            <div class="result-box panel">
+                <div class="ending-emoji">✨</div>
+                <h1 class="ending-title">Mission Complete!</h1>
+                <p class="ending-message"></p>
+                
+                <div class="ending-stats"></div>
+
+                <div class="learning-box">
+                    <h3>📚 What We Learned</h3>
+                    <p id="learningMessage"></p>
+                </div>
+
+                <div class="ending-buttons">
+                    <button class="end-button" onclick="goToMenu()">
+                        Try Another Biome 🌍
+                    </button>
+                    <button class="end-button" onclick="restart()">
+                        Back to Start 🏠
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+                    
